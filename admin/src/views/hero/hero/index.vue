@@ -2,24 +2,41 @@
   <div>
     <el-card class="!border-none" shadow="never">
       <el-row type="flex" justify="space-between">
-        <el-select v-model="queryParams.hero_type" placeholder="请选择英雄类型" clearable @change="fetchData">
-            <el-option
-              v-for="type in heroTypes"
-              :key="type.id"
-              :label="type.name"
-              :value="type.id"
-            />
-          </el-select>
-      <el-button type="primary" @click="handleCreate">新增英雄</el-button>
+        <el-select
+          v-model="queryParams.hero_type"
+          placeholder="请选择英雄类型"
+          clearable
+          @change="fetchData"
+        >
+          <el-option
+            v-for="type in heroTypes"
+            :key="type.id"
+            :label="type.name"
+            :value="type.id"
+          />
+        </el-select>
+        <el-button type="primary" @click="handleCreate">新增英雄</el-button>
       </el-row>
- 
     </el-card>
     <el-card class="!border-none mt-4" shadow="never">
       <el-table :data="heroes" stripe border>
+        <el-table-column label="英雄头像">
+          <template #default="scope">
+            <file-item
+              :uri="scope.row.avatar"
+              :file-size="'60px'"
+              :type="'image'"
+            >
+            </file-item>
+          </template>
+        </el-table-column>
+
         <el-table-column prop="name" label="英雄名称"></el-table-column>
         <el-table-column prop="hero_type" label="英雄类型">
           <template #default="scope">
-            <span>{{ heroTypes.find(item => item.id === scope.row.hero_type)?.name }}</span>
+            <span>{{
+              heroTypes.find((item) => item.id === scope.row.hero_type)?.name
+            }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="life" label="生命值"></el-table-column>
@@ -29,7 +46,7 @@
           <template #default="scope">
             <el-button
               size="small"
-              type="primary"
+              type="success"
               @click="handleEdit(scope.row)"
               >编辑</el-button
             >
@@ -46,7 +63,7 @@
       <div class="mt-4 flex justify-end">
         <el-pagination
           background
-          layout="prev, pager, next"
+          layout="prev, pager, next,total"
           :total="total"
           @current-change="goChangePage"
         />
@@ -59,6 +76,22 @@
       @close="handleDialogClose"
     >
       <el-form :model="form" :rules="rules" ref="formRef" label-width="80px">
+        <el-form-item label="英雄头像" >
+          <upload
+            class="mr-3"
+            :data="{ cid: 1 }"
+            :type="'image'"
+            :show-progress="true"
+            @change="refresh"
+          >
+            <el-image
+              v-if="form.avatar"
+              :src="form.avatar"
+              style="width: 100px; height: 100px"
+            ></el-image>
+            <el-button v-else type="primary">本地上传</el-button>
+          </upload>
+        </el-form-item>
         <el-form-item label="英雄名称" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
@@ -91,6 +124,7 @@
 </template>
 
 <script setup>
+import FileItem from "@/components/material/file.vue";
 import { ref, reactive, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import {
@@ -118,14 +152,18 @@ const formType = ref("create"); // create/update
 const queryParams = ref({
   page: 1,
   pageSize: 10,
-  hero_type:''
+  hero_type: "",
 });
 const total = ref(0);
 // 表单引用
 const formRef = ref(null);
 
+const refresh = (res) => {
+  form.avatar = res.data.path;
+};
 // 表单验证规则
 const rules = reactive({
+  avatar: [{ required: true, message: "请输入英雄头像", trigger: "blur" }],
   name: [{ required: true, message: "请输入英雄名称", trigger: "blur" }],
   hero_type: [{ required: true, message: "请选择英雄类型", trigger: "change" }],
   life: [{ required: true, message: "请输入生命值", trigger: "blur" }],

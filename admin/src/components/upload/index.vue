@@ -97,7 +97,7 @@ export default defineComponent({
             if (allSuccess) {
                 uploadRefs.value?.clearFiles()
                 visible.value = false
-                emit('change')
+                emit('change',response)
             }
             if (response.code == RequestCodeEnum.FAILED && response.msg) {
                 feedback.msgError(response.msg)

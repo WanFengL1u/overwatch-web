@@ -12,7 +12,7 @@
           <template #default="scope">
             <el-button
               size="small"
-              type="primary"
+              type="success"
               @click="handleEdit(scope.row)"
               >编辑</el-button
             >
