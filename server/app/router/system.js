@@ -8,6 +8,13 @@ module.exports = app => {
   router.all('/api/common/index/console', controller.system.console);
   router.all('/api/common/index/config', controller.system.configInfo);
 
+  // 英雄类型路由
+  router.get('/api/heroType/list', controller.heroType.list);
+  router.get('/api/heroType/detail', controller.heroType.detail);
+  router.post('/api/heroType/add', controller.heroType.add);
+  router.post('/api/heroType/edit', controller.heroType.edit);
+  router.post('/api/heroType/del', controller.heroType.del);
+
   // 部门管理
   router.all('/api/system/dept/list', controller.system.dept.deptList);
   router.all('/api/system/dept/add', controller.system.dept.deptAdd);

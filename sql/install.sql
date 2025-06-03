@@ -16,7 +16,45 @@
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
+-- ----------------------------
+-- Table structure for la_hero_type
+-- ----------------------------
+DROP TABLE IF EXISTS `la_hero_type`;
+CREATE TABLE `la_hero_type` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '英雄类型名称',
+  `code` varchar(50) NOT NULL DEFAULT '' COMMENT '英雄类型代码',
+  `total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '该类型英雄的总数',
+  `is_delete` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除: 0=否, 1=是',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='英雄类型表';
+-- ----------------------------
+-- Records of la_hero_type
+-- ----------------------------
+BEGIN;
+COMMIT;
+-- ----------------------------
+-- Table structure for la_hero
+-- ----------------------------
+DROP TABLE IF EXISTS `la_hero`;
+CREATE TABLE `la_hero` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '英雄名称',
+  `avatar` varchar(200) NOT NULL DEFAULT '' COMMENT '英雄头像路径',
+  `is_delete` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除: 0=否, 1=是',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='英雄表';
+-- ----------------------------
+-- Records of la_hero
+-- ----------------------------
+BEGIN;
+COMMIT;
 -- ----------------------------
 -- Table structure for la_album
 -- ----------------------------
