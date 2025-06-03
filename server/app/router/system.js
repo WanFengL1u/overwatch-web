@@ -15,6 +15,13 @@ module.exports = app => {
   router.post('/api/heroType/edit', controller.heroType.edit);
   router.post('/api/heroType/del', controller.heroType.del);
 
+  // 英雄路由
+  router.get('/api/hero/list', controller.hero.list);
+  router.get('/api/hero/detail', controller.hero.detail);
+  router.post('/api/hero/add', controller.hero.add);
+  router.post('/api/hero/edit', controller.hero.edit);
+  router.post('/api/hero/del', controller.hero.del);
+
   // 部门管理
   router.all('/api/system/dept/list', controller.system.dept.deptList);
   router.all('/api/system/dept/add', controller.system.dept.deptAdd);

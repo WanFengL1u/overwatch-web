@@ -1,24 +1,14 @@
 <template>
-  <div class="hero-type-container">
-    <!-- 增删改查操作区 -->
-    <div class="action-section">
-      <el-row :gutter="12">
-        <el-col :span="6">
-          <el-button type="primary" @click="handleCreate">新增类型</el-button>
-        </el-col>
-      </el-row>
-
-      <!-- 表格与操作 -->
-      <el-table
-        :data="heroTypes"
-        stripe
-        border
-        style="width: 100%; margin-top: 20px"
-      >
+  <div>
+    <el-card class="!border-none" shadow="never">
+      <el-button type="primary" @click="handleCreate">新增类型</el-button>
+    </el-card>
+    <el-card class="!border-none mt-4" shadow="never">
+      <el-table :data="heroTypes" stripe border>
         <el-table-column prop="name" label="类型名称"></el-table-column>
         <el-table-column prop="code" label="类型代码"></el-table-column>
         <el-table-column prop="total" label="英雄数量"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="150">
           <template #default="scope">
             <el-button
               size="small"
@@ -36,31 +26,29 @@
           </template>
         </el-table-column>
       </el-table>
-
-      <!-- 新增/编辑弹窗 -->
-      <el-dialog
-        v-model="dialogVisible"
-        title="英雄类型管理"
-        :close-on-click-modal="false"
-        @close="handleDialogClose"
-      >
-        <el-form :model="form" :rules="rules" ref="formRef" label-width="80px">
-          <el-form-item label="类型名称" prop="name">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="类型代码" prop="code">
-            <el-input v-model="form.code"></el-input>
-          </el-form-item>
-          <el-form-item label="英雄数量" prop="total">
-            <el-input-number v-model="form.total" :min="0"></el-input-number>
-          </el-form-item>
-        </el-form>
-        <template #footer>
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleSubmit">保存</el-button>
-        </template>
-      </el-dialog>
-    </div>
+    </el-card>
+    <el-dialog
+      v-model="dialogVisible"
+      title="英雄类型管理"
+      :close-on-click-modal="false"
+      @close="handleDialogClose"
+    >
+      <el-form :model="form" :rules="rules" ref="formRef" label-width="80px">
+        <el-form-item label="类型名称" prop="name">
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="类型代码" prop="code">
+          <el-input v-model="form.code"></el-input>
+        </el-form-item>
+        <el-form-item label="英雄数量" prop="total">
+          <el-input-number v-model="form.total" :min="0"></el-input-number>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="handleSubmit">保存</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
   
@@ -180,65 +168,4 @@ onMounted(() => {
   fetchData();
 });
 </script>
-  
-  <style scoped>
-.hero-type-container {
-  padding: 20px;
-  background-color: #fff;
-}
-
-.stat-card-container {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.stat-card {
-  flex: 1;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 18px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.card-title {
-  font-size: 1.2em;
-  font-weight: 500;
-  color: #333;
-}
-
-.card-count {
-  font-size: 1.8em;
-  font-weight: 700;
-  color: #409eff;
-}
-
-.card-subtitle {
-  font-size: 0.9em;
-  color: #666;
-}
-
-.action-section {
-  width: 100%;
-}
-
-.el-table {
-  margin-top: 15px;
-}
-
-.el-table__row:hover {
-  cursor: pointer;
-}
-</style>
   
